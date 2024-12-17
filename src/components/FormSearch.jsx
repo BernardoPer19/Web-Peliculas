@@ -11,10 +11,11 @@ function FormSearch() {
   }, []);
 
   const handleChange = (e) => {
-    setSearch(e.target.value); // Cambié setsearch a setSearch para coincidir con la convención
+    console.log("Nuevo valor:", e.target.value); // Depuración
+    setSearch(e.target.value);
     if (errForm) setErrForm(false);
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 

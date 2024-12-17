@@ -1,25 +1,15 @@
-import React, { createContext, useState, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-// Crear el contexto
 const MovieContext = createContext();
 
-// Proveedor del contexto
 export const MovieProvider = ({ children }) => {
-  const [search, setSearch] = useState(""); // Estado global de búsqueda
-
-  // Función para actualizar el estado de búsqueda
-  const updateSearch = (query) => {
-    setSearch(query);
-  };
+  const [search, setSearch] = useState("");
 
   return (
-    <MovieContext.Provider value={{ search, updateSearch }}>
+    <MovieContext.Provider value={{ search, setSearch }}>
       {children}
     </MovieContext.Provider>
   );
 };
 
-// Custom hook para acceder al contexto
-export const useMyContext = () => {
-  return useContext(MovieContext);
-};
+export const useMyContext = () => useContext(MovieContext);

@@ -1,5 +1,6 @@
+// CardAllMovies.js
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import FormSearch from "../components/FormSearch";
 import useSearchMovies from "../hooks/useSearchMovies";
 
@@ -10,9 +11,9 @@ function CardAllMovies() {
     loading,
     error,
     totalPages,
-  } = useSearchMovies(currentPage);
+  } = useSearchMovies(currentPage); // Pasamos currentPage como argumento al hook
   const moviesPerPage = 15;
-  const navigate = useNavigate(); // Usamos useNavigate para navegar a otras rutas
+  const navigate = useNavigate();
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -27,7 +28,7 @@ function CardAllMovies() {
   };
 
   const handleMovieClick = (movieId) => {
-    navigate(`/pelis/details/${movieId}`); // Navegar a la página de detalles de la película usando su ID
+    navigate(`/pelis/details/${movieId}`);
   };
 
   if (loading) {
@@ -41,9 +42,7 @@ function CardAllMovies() {
       <FormSearch />
 
       <div className="m-auto max-w-[1280px]">
-        {movies.length === 0 ? (
-          <p className="text-center text-white">No se encontraron películas</p>
-        ) : (
+        {movies && movies.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {movies.map((pelicula) => (
               <div
@@ -78,6 +77,8 @@ function CardAllMovies() {
               </div>
             ))}
           </div>
+        ) : (
+          <p className="text-center text-white">No se encontraron películas</p>
         )}
       </div>
 
@@ -95,8 +96,8 @@ function CardAllMovies() {
             Previous
           </button>
           <span className="text-white font-medium">
-            Page <span className="font-bold text-red-500">{currentPage}</span> of{" "}
-            {totalPages}
+            Page <span className="font-bold text-red-500">{currentPage}</span>{" "}
+            of {totalPages}
           </span>
           <button
             onClick={handleNextPage}

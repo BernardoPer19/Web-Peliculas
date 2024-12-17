@@ -8,7 +8,7 @@ function DetailsMovies() {
   if (loading) return <p>Cargando detalles...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
-  const movieDetails = data.find(movie => movie.id === parseInt(id));
+  const movieDetails = data[0]; // Ya que data contiene solo un objeto cuando hay un id
 
   return (
     <div className="movie-details p-6">
@@ -23,7 +23,7 @@ function DetailsMovies() {
           <p>{movieDetails.overview}</p>
           <p><strong>Duración:</strong> {movieDetails.runtime ? `${movieDetails.runtime} minutos` : "N/A"}</p>
           <p><strong>Rating:</strong> {movieDetails.vote_average}</p>
-          <p><strong>Géneros:</strong> {movieDetails.genres.map(genre => genre.name).join(", ")}</p>
+          <p><strong>Géneros:</strong> {Array.isArray(movieDetails.genres) && movieDetails.genres.length > 0 ? movieDetails.genres.map(genre => genre.name).join(", ") : "N/A"}</p>
           <p><strong>Fecha de estreno:</strong> {movieDetails.release_date}</p>
 
           {/* Mostrar las películas similares */}
