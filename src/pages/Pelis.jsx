@@ -11,7 +11,7 @@ function CardAllMovies() {
     loading,
     error,
     totalPages,
-  } = useSearchMovies(currentPage); // Pasamos currentPage como argumento al hook
+  } = useSearchMovies(null,currentPage); // Pasamos currentPage como argumento al hook
   const moviesPerPage = 15;
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ function CardAllMovies() {
     <main className="bg-zinc-800 pt-10">
       <FormSearch />
 
-      <div className="m-auto max-w-[1280px]">
+      <div className="m-auto max-w-[1280px] ">
         {movies && movies.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {movies.map((pelicula) => (

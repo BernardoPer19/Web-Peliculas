@@ -3,13 +3,17 @@ import { useMyContext } from "../context/movieContext";
 
 const useSearchMovies = (id = null, page = 1) => {
   const { search } = useMyContext();
-  const [data, setData] = useState([]); // Para los resultados de búsqueda o películas populares
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
-  const [similares, setSimilares] = useState([]); // Para las películas similares
 
-  const query = search.trim() || "all"; // Si no hay búsqueda, tomar todos
+  // Para el fetch de datos
+  const [data, setData] = useState([]);
+  const [similares, setSimilares] = useState([]);
+  const [trailer, setTrailer] = useState(null);
+  const [credits, setCredits] = useState({ cast: [], crew: [] });
+
+  const query = search.trim() || "all";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +23,6 @@ const useSearchMovies = (id = null, page = 1) => {
       try {
         let url;
 
-        // Si no hay id (búsqueda normal o lista de películas populares)
         if (!id) {
           if (query === "all") {
             url = `https://api.themoviedb.org/3/discover/movie?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&sort_by=popularity.desc&page=${page}`;
@@ -34,12 +37,42 @@ const useSearchMovies = (id = null, page = 1) => {
           setTotalPages(result.total_pages);
         }
 
-        // Si tenemos un id, buscamos detalles de la película y similares
+        // Si tenemos un id, buscamos detalles de la película, similares, el trailer y los créditos
         if (id) {
           const movieDetailsResponse = await fetch(
             `https://api.themoviedb.org/3/movie/${id}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
           );
           const movieDetails = await movieDetailsResponse.json();
+
+          // Obtener videos (trailers) de la película
+          const videoResponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${id}/videos?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
+          );
+          const videoData = await videoResponse.json();
+
+          // Obtener créditos (actores y equipo)
+          const creditsReponse = await fetch(
+            `https://api.themoviedb.org/3/movie/${id}/credits?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
+          );
+          const creditsData = await creditsReponse.json();
+
+          // Buscar el trailer entre los videos
+          const movieTrailer = videoData.results.find(
+            (video) => video.type === "Trailer"
+          );
+
+          // Si encontramos el trailer, lo asignamos al estado 'trailer'
+          if (movieTrailer) {
+            setTrailer(movieTrailer);
+          } else {
+            setTrailer(null); // Si no hay trailer, limpiamos el estado
+          }
+
+          // Establecemos los créditos (actores y equipo)
+          setCredits({
+            cast: creditsData.cast || [],
+            crew: creditsData.crew || [],
+          });
 
           // Obtenemos las películas similares
           const similarResponse = await fetch(
@@ -47,8 +80,8 @@ const useSearchMovies = (id = null, page = 1) => {
           );
           const similarData = await similarResponse.json();
 
-          setData([movieDetails]); // Guardamos solo la película seleccionada
-          setSimilares(similarData.results || []); // Guardamos las películas similares
+          setData([movieDetails]);
+          setSimilares(similarData.results || []);
         }
 
         setLoading(false);
@@ -59,9 +92,9 @@ const useSearchMovies = (id = null, page = 1) => {
     };
 
     fetchData();
-  }, [search, page, id]); // La dependencia es tanto search, page como id
+  }, [search, page, id]);
 
-  return { data, loading, error, totalPages, similares };
+  return { data, loading, error, totalPages, similares, trailer, credits };
 };
 
 export default useSearchMovies;

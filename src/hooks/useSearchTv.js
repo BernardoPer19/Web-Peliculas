@@ -3,10 +3,12 @@ import { useMyContext } from "../context/movieContext";
 
 const useSearchTVShows = (page = 1) => {
   const { search } = useMyContext(); 
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
+
+ // Para el fetch de datos
+ const [data, setData] = useState([]);
 
   const query = search.trim() || "all"; 
 

@@ -27,7 +27,7 @@ function FormSearch() {
   };
 
   return (
-    <div className="w-full text-center">
+    <div className="w-full text-center ">
       <form
         onSubmit={handleSubmit}
         className="w-full mb-6 flex gap-3 items-center justify-center"

@@ -40,14 +40,12 @@ const MainSeries = () => {
       >
         {data.map((series) => (
           <SwiperSlide key={series.id} className="relative group">
-            {/* Imagen del póster */}
             <img
               src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
               alt={series.name}
               className="h-[250px] sm:h-[300px] md:h-[350px] object-cover w-full rounded-lg transition-opacity duration-300 group-hover:opacity-50"
             />
 
-            {/* Contenedor de información */}
             <div className="absolute bottom-0 left-0 right-0 bg-zinc-900 bg-opacity-90 px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <h2 className="text-md lg:text-lg font-semibold text-white">
                 {series.name}
