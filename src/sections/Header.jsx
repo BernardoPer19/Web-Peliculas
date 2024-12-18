@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import RatigStars from '../components/RatigStars'
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -10,9 +10,7 @@ import 'swiper/css/autoplay';
 
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
+
 
 import useMovies from "../hooks/useMovies";
 import BtnPlay from "../components/BtnPlay";
@@ -78,23 +76,7 @@ const Header = () => {
                     : "N/A"}
                 </p>
 
-                <Box
-                  sx={{ width: 200, display: "flex", alignItems: "center" }}
-                  className="mb-6"
-                >
-                  <Rating
-                    name="text-feedback"
-                    value={movie.vote_average / 2}
-                    readOnly
-                    precision={0.5}
-                    emptyIcon={
-                      <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                    }
-                  />
-                  <Box sx={{ ml: 2 }}>
-                    {labels[Math.round(movie.vote_average / 2)] || "N/A"}
-                  </Box>
-                </Box>
+                  <RatigStars movieDetails={movie} />
 
                 <div className="flex items-center space-x-4">
                   <button

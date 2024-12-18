@@ -9,13 +9,13 @@ import DetallesPeliculas from "../components/DetallesPeliculas";
 
 function DetailsMovies() {
   const { id } = useParams();
-  const { data, loading, error, similares, trailer, credits } =
+  const { dataMovie, loading, error, similares, trailer, credits } =
     useSearchMovies(id);
 
   if (loading) return <p>Cargando detalles...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
-  const movieDetails = data[0];
+  const movieDetails = dataMovie[0];
 
   return (
     <main className="movie-details  bg-zinc-800 min-h-screen p-6 ">

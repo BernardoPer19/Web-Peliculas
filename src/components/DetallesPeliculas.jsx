@@ -1,22 +1,10 @@
 
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
+
 import { IoPlay } from "react-icons/io5";
+import RatigStars from "./RatigStars";
 
 
-const labels = {
-    0.5: "Muy Malo",
-    1: "Malo",
-    1.5: "Poco Bueno",
-    2: "Regular",
-    2.5: "Aceptable",
-    3: "Bueno",
-    3.5: "Muy Bueno",
-    4: "Excelente",
-    4.5: "Excelente",
-    5: "Perfecto",
-  };
+
 
 function DetallesPeliculas({movieDetails}) {
   return (
@@ -34,27 +22,11 @@ function DetallesPeliculas({movieDetails}) {
         <h1 className="text-4xl font-bold">{movieDetails.title}</h1>
         <p className="text-lg">{movieDetails.overview}</p>
         <p>
-          <strong>Duración:</strong>{" "}
+          <strong>Duración:</strong>
           {movieDetails.runtime ? `${movieDetails.runtime} minutos` : "N/A"}
         </p>
         <p>
-          <Box
-            sx={{ width: 200, display: "flex", alignItems: "center" }}
-            className="mb-6"
-          >
-            <Rating
-              name="text-feedback"
-              value={movieDetails.vote_average / 2}
-              readOnly
-              precision={0.5}
-              emptyIcon={
-                <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-              }
-            />
-            <Box sx={{ ml: 2 }}>
-              {labels[Math.round(movieDetails.vote_average / 2)] || "N/A"}
-            </Box>
-          </Box>
+        <RatigStars movieDetails={movieDetails}/>
         </p>
         <p>
           <strong>Géneros:</strong>{" "}

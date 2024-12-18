@@ -5,13 +5,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 import useSeries from "../hooks/useSeries";
 import BtnPlay from "../components/BtnPlay";
+import RatigStars from "../components/RatigStars";
 
 const SeriesNuevas = () => {
   const { loading, error, data } = useSeries("tv/airing_today");
@@ -20,18 +18,7 @@ const SeriesNuevas = () => {
     return <p className="text-white text-center">Cargando series...</p>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
 
-  const labels = {
-    0.5: "Muy Malo",
-    1: "Malo",
-    1.5: "Poco Bueno",
-    2: "Regular",
-    2.5: "Aceptable",
-    3: "Bueno",
-    3.5: "Muy Bueno",
-    4: "Excelente",
-    4.5: "Excelente",
-    5: "Perfecto",
-  };
+
 
   return (
     <main className="w-full">
@@ -77,23 +64,7 @@ const SeriesNuevas = () => {
                     : "N/A"}
                 </p>
 
-                <Box
-                  sx={{ width: 200, display: "flex", alignItems: "center" }}
-                  className="mb-6"
-                >
-                  <Rating
-                    name="text-feedback"
-                    value={tv.vote_average / 2}
-                    readOnly
-                    precision={0.5}
-                    emptyIcon={
-                      <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                    }
-                  />
-                  <Box sx={{ ml: 2 }}>
-                    {labels[Math.round(tv.vote_average / 2)] || "N/A"}
-                  </Box>
-                </Box>
+                <RatigStars movieDetails={tv} />
 
                 <div className="flex items-center space-x-4">
                   <button
