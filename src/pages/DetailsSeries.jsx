@@ -1,7 +1,7 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import useSearchTVShows from "../hooks/useSearchTv";
 import DetallesSeries from "../components/DetailSeries";
+import Trailer from "../components/Trailer";
 
 function DetailsSeries() {
   const { id } = useParams(); 
@@ -9,9 +9,10 @@ function DetailsSeries() {
     dataTv,
     loading,
     error,
-  } = useSearchTVShows(id);
+  } = useSearchTVShows(id); // Aquí pasa el id directamente a useSearchTVShows
 
-  const seriesDetails = dataTv[0]; 
+  // Verificación de que se han recibido detalles de la serie
+  const seriesDetails = dataTv && dataTv.length > 0 ? dataTv[0] : null;
 
   if (loading) {
     return <p>Cargando....</p>;
@@ -22,9 +23,11 @@ function DetailsSeries() {
   return (
     <main>
       {seriesDetails ? (
-        <DetallesSeries seriesDetails={seriesDetails} /> // Pasa los detalles a DetallesSeries
+        
+        <DetallesSeries seriesDetails={seriesDetails} />
+      
       ) : (
-        <p>No se encontraron detalles</p> // Muestra un mensaje si no hay detalles
+        <p>No se encontraron detalles de la serie</p> 
       )}
     </main>
   );

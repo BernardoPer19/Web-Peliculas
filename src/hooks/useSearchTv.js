@@ -1,4 +1,4 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { useMyContext } from "../context/movieContext";
 
 const useSearchTVShows = (id = null, page = 1) => {
@@ -15,8 +15,6 @@ const useSearchTVShows = (id = null, page = 1) => {
     setDataTv,
     similares,
     setSimilares,
-    trailer,
-    setTrailer,
     credits,
     setCredits,
   } = useMyContext();
@@ -28,29 +26,21 @@ const useSearchTVShows = (id = null, page = 1) => {
     return response.json();
   };
 
-  const fetchVideos = async (id) => {
-    const url = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
-    return fetchTvSeries(url);
-  };
-
   const fetchRecommend = async (id) => {
     const url =
-      `https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
-    ;
+      `https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
     return fetchTvSeries(url);
   };
 
   const fetchDetails = async (id) => {
-    const url = 
-      `https://api.themoviedb.org/3/tv/${id}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
-   
+    const url =
+      `https://api.themoviedb.org/3/tv/${id}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
     return fetchTvSeries(url);
   };
 
   const fetchCredits = async (id) => {
-    const url = 
-      `https://api.themoviedb.org/3/tv/${id}/credits?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
-    
+    const url =
+      `https://api.themoviedb.org/3/tv/${id}/credits?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
     return fetchTvSeries(url);
   };
 
@@ -62,32 +52,22 @@ const useSearchTVShows = (id = null, page = 1) => {
       try {
         if (!id) {
           const url =
-          query === "all"
-            ? `https://api.themoviedb.org/3/discover/tv?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&sort_by=popularity.desc&page=${page}`
-            : `https://api.themoviedb.org/3/search/tv?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&query=${query}&page=${page}`;
-
-       
+            query === "all"
+              ? `https://api.themoviedb.org/3/discover/tv?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&sort_by=popularity.desc&page=${page}`
+              : `https://api.themoviedb.org/3/search/tv?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&query=${query}&page=${page}`;
 
           const result = await fetchTvSeries(url);
           setDataTv(result.results);
           setTotalPages(result.total_pages);
-        }else{
-
-          const [showDetails, similarData, videoData, creditsData] = await Promise.all([
-            fetchCredits(id),
-            fetchRecommend(id),
+        } else {
+          const [showDetails, similarData, creditsData] = await Promise.all([
             fetchDetails(id),
-            fetchVideos(id)
-          ])
+            fetchRecommend(id),
+            fetchCredits(id),
+          ]);
 
-          setDataTv([showDetails]);
-          setSimilares(similarData.results || []);
-
-
-          const movieTreiler = videoData.results.find((video) =>  video.type === "Clip");
-
-          setTrailer(movieTreiler || null);
-
+          setDataTv([showDetails]);  // Guardamos los detalles de la serie
+          setSimilares(similarData.results || []); // Guardamos las recomendaciones
           setCredits({
             cast: creditsData.cast || [],
             crew: creditsData.crew || [],
@@ -101,10 +81,10 @@ const useSearchTVShows = (id = null, page = 1) => {
       }
     };
 
-    fetchData(); // Llamar a la función cada vez que cambien query o page
-  }, [search, page,id]); // Dependencias: búsqueda y página
+    fetchData();
+  }, [search, page, id]);
 
-  return { dataTv, loading, error, totalPages, similares,trailer,credits};
+  return { dataTv, loading, error, totalPages, similares, credits };
 };
 
 export default useSearchTVShows;

@@ -1,8 +1,8 @@
 // CardAllMovies.js
-import FormSearch from "../components/FormSearch";
 import useSearchMovies from "../hooks/useSearchMovies";
 import MovieList from "../components/MoviesList";
 import MaviePagination from "../components/MaviePagination";
+import FormSearch from '../components/FormSearch'
 import { useMyContext } from "../context/movieContext";
 
 function CardAllMovies() {

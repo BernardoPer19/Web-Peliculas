@@ -1,23 +1,21 @@
 import React from 'react'
 
-function SeriePagination({series,currentPage,totalPages,setcurrentPage,seriesPerPage}) {
-
-
+function SeriePagination({ series, currentPage, totalPages, setCurrentPage, seriesPerPage }) {
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setcurrentPage(currentPage + 1);
+      setCurrentPage(currentPage + 1); ////* Cambié setcurrentPage por setCurrentPage para ser consistente
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setcurrentPage(currentPage - 1);
+      setCurrentPage(currentPage - 1); ////* Cambié setcurrentPage por setCurrentPage para ser consistente
     }
   };
 
   return (
     <div>
-        {series.length > seriesPerPage && (
+      {series.length > seriesPerPage && (
         <div className="flex justify-between items-center mt-6 p-5">
           <button
             onClick={handlePrevPage}
@@ -48,7 +46,7 @@ function SeriePagination({series,currentPage,totalPages,setcurrentPage,seriesPer
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default SeriePagination
+export default SeriePagination;

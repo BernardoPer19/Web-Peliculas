@@ -6,11 +6,9 @@ import SeriePagination from "../components/SeriePagination";
 
 function Series() {
   const [currentPage, setCurrentPage] = useState(1);
-  const { dataTv:series, loading, error, totalPages, similares, trailer, credits } =
-    useSearchTVShows(null,currentPage);
+  const { dataTv: series, loading, error, totalPages, similares, trailer, credits } =
+    useSearchTVShows(null, currentPage);
   const seriesPerPage = 15;
-
-  
 
   if (loading) {
     return <p className="text-center">Cargando series...</p>;
@@ -22,13 +20,15 @@ function Series() {
     <main className="bg-zinc-800 pt-10">
       <FormSearch />
       {/* // <FilterControls/> */}
-      <SeriesList series={series}/>
+      <SeriesList series={series} />
 
-      <SeriePagination  series={series}
+      <SeriePagination
+        series={series}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={setCurrentPage} ////* Cambié setcurrentPage por setCurrentPage para ser consistente
         totalPages={totalPages}
-        seriesPerPage={seriesPerPage}/>
+        seriesPerPage={seriesPerPage}
+      />
     </main>
   );
 }
