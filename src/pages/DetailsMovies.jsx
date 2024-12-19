@@ -21,8 +21,7 @@ function DetailsMovies() {
     <main className="movie-details  bg-zinc-800 min-h-screen p-6 ">
       {movieDetails ? (
         <div className="max-w-screen-xl mx-auto flex flex-col items-center justify-center ">
-         
-          <DetallesPeliculas movieDetails={movieDetails}/>
+          <DetallesPeliculas movieDetails={movieDetails} />
 
           <ActoresPelis credits={credits} />
 

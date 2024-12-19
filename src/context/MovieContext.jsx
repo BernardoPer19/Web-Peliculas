@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import useSearchMovies from "../hooks/useSearchMovies";
 
 const MovieContext = createContext();
 
@@ -20,7 +19,9 @@ export const MovieProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const moviesPerPage = 15;
 
-  
+  //Series
+
+  const [dataTv, setDataTv] = useState([]);
 
   const value = {
     loading,
@@ -41,7 +42,9 @@ export const MovieProvider = ({ children }) => {
     setCredits,
     currentPage,
     setCurrentPage,
-    moviesPerPage
+    moviesPerPage,
+    dataTv,
+    setDataTv,
   };
 
   return (

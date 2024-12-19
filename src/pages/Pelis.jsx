@@ -10,7 +10,7 @@ function CardAllMovies() {
   const { currentPage, setCurrentPage, moviesPerPage } = useMyContext();
 
   const {
-    dataMovie: movies,
+    dataMovie,
     loading,
     error,
     totalPages,
@@ -26,10 +26,10 @@ function CardAllMovies() {
     <main className="bg-zinc-800 pt-10">
       <FormSearch />
 
-      <MovieList movies={movies} />
+      <MovieList movies={dataMovie} />
 
       <MaviePagination
-        movies={movies}
+        movies={dataMovie}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
