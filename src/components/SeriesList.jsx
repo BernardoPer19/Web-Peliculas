@@ -14,7 +14,7 @@ function SeriesList({ series }) {
         <p className="text-center text-white">No se encontraron series</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {series.slice(0, 15).map((serie) => ( ////* Cambié el número de items estático a series.slice(0, seriesPerPage)
+          {series.slice(0, 16).map((serie) => (
             <div
               key={serie.id}
               className="rounded-lg shadow-lg p-4 space-y-4 hover:drop-shadow-xl transition-shadow bg-zinc-900"
@@ -46,6 +46,8 @@ function SeriesList({ series }) {
               </div>
             </div>
           ))}
+
+          
         </div>
       )}
     </div>

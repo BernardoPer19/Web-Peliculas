@@ -17,6 +17,8 @@ const useSearchTVShows = (id = null, page = 1) => {
     setSimilares,
     credits,
     setCredits,
+    trailer,
+    setTrailer, // Se agrega trailer en el contexto
   } = useMyContext();
 
   const query = search.trim() || "all";
@@ -42,6 +44,14 @@ const useSearchTVShows = (id = null, page = 1) => {
     const url =
       `https://api.themoviedb.org/3/tv/${id}/credits?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
     return fetchTvSeries(url);
+  };
+
+  const fetchTrailer = async (id) => {
+    const url =
+      `https://api.themoviedb.org/3/tv/${id}/videos?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+    const result = await fetchTvSeries(url);
+    const trailerData = result.results && result.results.find((video) => video.type === "Trailer");
+    setTrailer(trailerData); // Guardamos el trailer si existe
   };
 
   useEffect(() => {
@@ -72,6 +82,9 @@ const useSearchTVShows = (id = null, page = 1) => {
             cast: creditsData.cast || [],
             crew: creditsData.crew || [],
           });
+
+          // Traemos el trailer después de obtener los detalles
+          fetchTrailer(id);
         }
 
         setLoading(false);
@@ -84,7 +97,7 @@ const useSearchTVShows = (id = null, page = 1) => {
     fetchData();
   }, [search, page, id]);
 
-  return { dataTv, loading, error, totalPages, similares, credits };
+  return { dataTv, loading, error, totalPages, similares, credits, trailer };
 };
 
 export default useSearchTVShows;
