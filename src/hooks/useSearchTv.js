@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useMyContext } from "../context/movieContext";
+import { API_KEY } from "../APIKEY";
 
 const useSearchTVShows = (id = null, page = 1) => {
   const {
@@ -30,25 +31,25 @@ const useSearchTVShows = (id = null, page = 1) => {
 
   const fetchRecommend = async (id) => {
     const url =
-      `https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+      `https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=${API_KEY}&language=es-ES`;
     return fetchTvSeries(url);
   };
 
   const fetchDetails = async (id) => {
     const url =
-      `https://api.themoviedb.org/3/tv/${id}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+      `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}&language=es-ES`;
     return fetchTvSeries(url);
   };
 
   const fetchCredits = async (id) => {
     const url =
-      `https://api.themoviedb.org/3/tv/${id}/credits?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+      `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}&language=es-ES`;
     return fetchTvSeries(url);
   };
 
   const fetchTrailer = async (id) => {
     const url =
-      `https://api.themoviedb.org/3/tv/${id}/videos?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+      `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=es-ES`;
     const result = await fetchTvSeries(url);
     const trailerData = result.results && result.results.find((video) => video.type === "Trailer");
     setTrailer(trailerData); // Guardamos el trailer si existe
@@ -63,8 +64,8 @@ const useSearchTVShows = (id = null, page = 1) => {
         if (!id) {
           const url =
             query === "all"
-              ? `https://api.themoviedb.org/3/discover/tv?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&sort_by=popularity.desc&page=${page}`
-              : `https://api.themoviedb.org/3/search/tv?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&query=${query}&page=${page}`;
+              ? `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&language=es-ES&sort_by=popularity.desc&page=${page}`
+              : `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&language=es-ES&query=${query}&page=${page}`;
 
           const result = await fetchTvSeries(url);
           setDataTv(result.results);

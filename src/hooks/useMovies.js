@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_KEY } from "../APIKEY";
 
 
 const useMovies = (endpoint = "movie/popular", page = 1) => {
@@ -11,14 +12,14 @@ const useMovies = (endpoint = "movie/popular", page = 1) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/${endpoint}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&page=${page}`
+          `https://api.themoviedb.org/3/${endpoint}?api_key=${API_KEY}&language=es-ES&page=${page}`
         );
         const result = await response.json();
 
         const detailedData = await Promise.all(
           result.results.map(async (item) => {
             const detailsResponse = await fetch(
-              `https://api.themoviedb.org/3/${endpoint.split("/")[0]}/${item.id}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`
+              `https://api.themoviedb.org/3/${endpoint.split("/")[0]}/${item.id}?api_key=${API_KEY}&language=es-ES`
             );
             const details = await detailsResponse.json();
             return { ...item, ...details };

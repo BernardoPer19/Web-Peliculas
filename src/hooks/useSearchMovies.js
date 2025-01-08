@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useMyContext } from "../context/movieContext";
+import { API_KEY } from "../APIKEY";
 
 const useSearchMovies = (id = null, page = 1) => {
   const {
@@ -34,22 +35,22 @@ const useSearchMovies = (id = null, page = 1) => {
 
   //estos fetch son importantes por que nos da los datos de cada pelicula dependiendo el id q le pasemos como parametro en el navegado dinamico
   const fetchMovieDetails = async (id) => {
-    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es-ES`;
     return fetchMovies(url);
   };
 
   const fetchSimilarMovies = async (id) => {
-    const url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+    const url = `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${API_KEY}&language=es-ES`;
     return fetchMovies(url);
   };
 
   const fetchVideos = async (id) => {
-    const url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+    const url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=es-ES`;
     return fetchMovies(url);
   };
 
   const fetchCredits = async (id) => {
-    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES`;
+    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language=es-ES`;
     return fetchMovies(url);
   };
 
@@ -62,8 +63,8 @@ const useSearchMovies = (id = null, page = 1) => {
         if (!id) {
           const url =
             query === "all"
-              ? `https://api.themoviedb.org/3/discover/movie?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&sort_by=popularity.desc&page=${page}`
-              : `https://api.themoviedb.org/3/search/movie?api_key=ff95c5df2b63660b42c39e56dced1840&language=es-ES&query=${query}&page=${page}`;
+              ? `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=es-ES&sort_by=popularity.desc&page=${page}`
+              : `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=es-ES&query=${query}&page=${page}`;
 
           const result = await fetchMovies(url);
           setDatamovie(result.results);
