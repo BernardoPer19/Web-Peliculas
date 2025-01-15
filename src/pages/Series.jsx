@@ -25,7 +25,7 @@ function Series() {
       <SeriePagination
         series={series}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage} ////* Cambié setcurrentPage por setCurrentPage para ser consistente
+        setCurrentPage={setCurrentPage} 
         totalPages={totalPages}
         seriesPerPage={seriesPerPage}
       />
