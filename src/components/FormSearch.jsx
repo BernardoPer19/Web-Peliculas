@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../context/movieContext";
 
 function FormSearch() {
-  const { search, setSearch } = useMyContext(); // Usar setSearch en lugar de setsearch
+  const { search, setSearch } = useMyContext(); 
   const [errForm, setErrForm] = useState(false);
   const inputRef = useRef(null);
 
@@ -11,7 +11,7 @@ function FormSearch() {
   }, []);
 
   const handleChange = (e) => {
-    console.log("Nuevo valor:", e.target.value); // Depuración
+    console.log("Nuevo valor:", e.target.value); 
     setSearch(e.target.value);
     if (errForm) setErrForm(false);
   };
@@ -22,7 +22,7 @@ function FormSearch() {
     if (!search.trim()) {
       setErrForm(true);
     } else {
-      // Aquí puedes manejar el submit, si es necesario
+     
     }
   };
 
