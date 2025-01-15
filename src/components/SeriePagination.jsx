@@ -3,13 +3,13 @@ import React from 'react'
 function SeriePagination({ series, currentPage, totalPages, setCurrentPage, seriesPerPage }) {
   const handleNextPage = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1); ////* Cambié setcurrentPage por setCurrentPage para ser consistente
+      setCurrentPage(currentPage + 1);
     }
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1); ////* Cambié setcurrentPage por setCurrentPage para ser consistente
+      setCurrentPage(currentPage - 1); 
     }
   };
 
