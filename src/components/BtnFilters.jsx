@@ -3,11 +3,11 @@ export function FilterControls({ setGenre, setAdult, setYear, setSortBy }) {
       <div className="filter-controls">
         <select onChange={(e) => setGenre(e.target.value)}>
           <option value="">Género</option>
-          {/* Aquí puedes agregar una lista de géneros */}
+ 
           <option value="28">Acción</option>
           <option value="35">Comedia</option>
           <option value="18">Drama</option>
-          {/* Añadir más géneros... */}
+        
         </select>
   
         <label>
