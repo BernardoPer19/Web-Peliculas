@@ -19,7 +19,7 @@ const useSearchTVShows = (id = null, page = 1) => {
     credits,
     setCredits,
     trailer,
-    setTrailer, // Se agrega trailer en el contexto
+    setTrailer, 
   } = useMyContext();
 
   const query = search.trim() || "all";
@@ -52,7 +52,7 @@ const useSearchTVShows = (id = null, page = 1) => {
       `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${API_KEY}&language=es-ES`;
     const result = await fetchTvSeries(url);
     const trailerData = result.results && result.results.find((video) => video.type === "Trailer");
-    setTrailer(trailerData); // Guardamos el trailer si existe
+    setTrailer(trailerData); 
   };
 
   useEffect(() => {
@@ -77,14 +77,14 @@ const useSearchTVShows = (id = null, page = 1) => {
             fetchCredits(id),
           ]);
 
-          setDataTv([showDetails]);  // Guardamos los detalles de la serie
-          setSimilares(similarData.results || []); // Guardamos las recomendaciones
+          setDataTv([showDetails]);  
+          setSimilares(similarData.results || []); 
           setCredits({
             cast: creditsData.cast || [],
             crew: creditsData.crew || [],
           });
 
-          // Traemos el trailer después de obtener los detalles
+         
           fetchTrailer(id);
         }
 
